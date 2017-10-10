@@ -46,5 +46,7 @@ public class FancyButton : Button
             default:
                 throw new ArgumentOutOfRangeException("state", state, null);
         }
+
+        base.DoStateTransition(state, instant);
     }
 }
