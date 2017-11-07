@@ -3,50 +3,53 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FancyButton : Button
+namespace WeersProductions.UiElements
 {
-    private RectTransform _rect;
-
-    protected override void Awake()
+    public class FancyButton : Button
     {
-        base.Awake();
+        private RectTransform _rect;
 
-        _rect = GetComponent<RectTransform>();
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        DOTween.To(value => _rect.localScale = new Vector3(value, value, value), 0, 1, 0.6f).SetEase(Ease.OutElastic);
-    }
-
-    protected override void DoStateTransition(SelectionState state, bool instant)
-    {
-        float duration = 0.7f;
-        if (instant)
+        protected override void Awake()
         {
-            duration = 0;
+            base.Awake();
+
+            _rect = GetComponent<RectTransform>();
         }
 
-        switch (state)
+        protected override void OnEnable()
         {
-            case SelectionState.Normal:
-                _rect.DOScale(Vector3.one, duration).SetEase(Ease.OutElastic);
-                break;
-            case SelectionState.Highlighted:
-                _rect.DOScale(new Vector3(1.08f, 1.08f, 1.08f), duration).SetEase(Ease.OutElastic);
-                break;
-            case SelectionState.Pressed:
-                _rect.DOPunchScale(new Vector3(-0.1f, -0.1f, -0.1f), duration, 5, 0.5f).SetEase(Ease.OutElastic);
-                break;
-            case SelectionState.Disabled:
-                _rect.DOScale(Vector3.one, duration);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException("state", state, null);
+            base.OnEnable();
+
+            DOTween.To(value => _rect.localScale = new Vector3(value, value, value), 0, 1, 0.6f).SetEase(Ease.OutElastic);
         }
 
-        base.DoStateTransition(state, instant);
+        protected override void DoStateTransition(SelectionState state, bool instant)
+        {
+            float duration = 0.7f;
+            if (instant)
+            {
+                duration = 0;
+            }
+
+            switch (state)
+            {
+                case SelectionState.Normal:
+                    _rect.DOScale(Vector3.one, duration).SetEase(Ease.OutElastic);
+                    break;
+                case SelectionState.Highlighted:
+                    _rect.DOScale(new Vector3(1.08f, 1.08f, 1.08f), duration).SetEase(Ease.OutElastic);
+                    break;
+                case SelectionState.Pressed:
+                    _rect.DOPunchScale(new Vector3(-0.1f, -0.1f, -0.1f), duration, 5, 0.5f).SetEase(Ease.OutElastic);
+                    break;
+                case SelectionState.Disabled:
+                    _rect.DOScale(Vector3.one, duration);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("state", state, null);
+            }
+
+            base.DoStateTransition(state, instant);
+        }
     }
 }
