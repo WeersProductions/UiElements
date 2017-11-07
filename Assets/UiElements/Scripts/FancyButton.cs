@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 namespace WeersProductions.UiElements
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// A button with some animations.
+    /// </summary>
     public class FancyButton : Button
     {
         private RectTransform _rect;
@@ -23,6 +27,11 @@ namespace WeersProductions.UiElements
             DOTween.To(value => _rect.localScale = new Vector3(value, value, value), 0, 1, 0.6f).SetEase(Ease.OutElastic);
         }
 
+        /// <summary>
+        /// Called whenever the internal state of the button changes. This will show the elastic animations, but also any default animations if enabled.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="instant"></param>
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
             float duration = 0.7f;
